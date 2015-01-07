@@ -16,7 +16,6 @@ class Sunset
 		geodata = JSON.parse(Net::HTTP.get(uri))
 		geodata = geodata["results"][0]["geometry"]["location"]
 
-
 		lat = geodata["lat"]
 		lng = geodata["lng"]
 

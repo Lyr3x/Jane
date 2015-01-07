@@ -19,6 +19,8 @@
     - 'all'
     #this command is run on an http get at the fn_args generated url
     #the command will be converted to ruby by eval(), so just use ruby code
+    #for multiline commands use \n to define a new line
+    #ex: "puts 'Hello' \n puts 'World'"
     :command: ""
   #secound button
   - :name: 'button2'
