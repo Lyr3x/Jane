@@ -1,5 +1,5 @@
 require 'open3'
- 
+
 def log s
   p Time.now.to_s + " #{s}"
 end
@@ -38,4 +38,6 @@ def poll_device_status(mac_addr)
 end
  
 log "Started."
-poll_device_status "9c:d9:17:20:89:72"
+poll_device_status "9C:D9:17:20:89:72"
+
+
