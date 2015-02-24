@@ -16,6 +16,7 @@ use Rack::Cache,
   :metastore   => 'file:/Users/Kai/Development/Jane/public/cache/meta',
   :entitystore => 'file:/Users/Kai/Development/Jane/public/cache/body'
 
+
 helpers do
   def render_button(btn_desc)
   	html_renderd_button = "<button type=\"button\" 
@@ -46,7 +47,6 @@ end
 
 #render index.erb
 get '/' do
-  cache_control :public, :max_age => 36000
 	erb :index
 end
 
