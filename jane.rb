@@ -1,23 +1,20 @@
 #Jane
 require 'sinatra'
-require 'sinatra/cache'
-#require 'rubygems'
+require 'rack/cache'
 require 'rufus-scheduler'
 #require File.join(File.expand_path(File.dirname(__FILE__)), "addons", "sunset.rb")
 #require File.join(File.expand_path(File.dirname(__FILE__)), "addons", "timer.rb")
 require 'yaml'
 require "net/http"
 
+
 #listen to 0.0.0.0 instead of localhost
 set :bind, '0.0.0.0'
 
-#sinatra-cache
-configure do
-      register(Sinatra::Cache)
-      set :root, File.dirname(__FILE__)
-      set :cache_enabled, true
-      set :cache_output_dir, Proc.new { File.join(root, 'public', 'cache') }
-end
+use Rack::Cache,
+  :verbose => true,
+  :metastore   => 'file:/Users/Kai/Development/Jane/public/cache/meta',
+  :entitystore => 'file:/Users/Kai/Development/Jane/public/cache/body'
 
 helpers do
   def render_button(btn_desc)
@@ -49,6 +46,7 @@ end
 
 #render index.erb
 get '/' do
+  cache_control :public, :max_age => 36000
 	erb :index
 end
 
