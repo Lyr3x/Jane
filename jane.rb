@@ -13,9 +13,8 @@ set :bind, '0.0.0.0'
 
 use Rack::Cache,
   :verbose => true,
-  :metastore   => 'file:/Users/Kai/Development/Jane/public/cache/meta',
-  :entitystore => 'file:/Users/Kai/Development/Jane/public/cache/body'
-
+    :metastore   => 'file:cache/meta',
+    :entitystore => 'file:cache/body'
 
 helpers do
   def render_button(btn_desc)
