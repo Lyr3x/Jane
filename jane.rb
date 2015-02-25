@@ -11,6 +11,7 @@ require "net/http"
 #listen to 0.0.0.0 instead of localhost
 set :bind, '0.0.0.0'
 
+# init and config of rack cache
 use Rack::Cache,
   :verbose => true,
     :metastore   => 'file:cache/meta',
