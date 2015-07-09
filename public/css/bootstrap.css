@@ -6241,3 +6241,15 @@ button.close {
   line-height: 1.33;
   border-radius: 35px;
 }
+.parameter-field{
+  margin-bottom: 4px;  
+}
+.parameter-field.left{
+  padding-right: 0px;
+}
+.parameter-field.right{
+  padding-left: 0px;
+}
+.parameter-btn{
+  margin-left: -10px;
+}

@@ -95,6 +95,18 @@ get '/' do
   erb :index
 end
 
+get '/button/new' do
+  erb :button_new
+end
+
+post '/button/save' do
+  redirect to('/')
+end
+
+get '/button/edit' do
+
+end
+
 get '/v1' do
   expires 1, :public, :must_revalidate
   device = params[:device]
