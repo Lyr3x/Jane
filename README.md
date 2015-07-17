@@ -2,13 +2,16 @@
 
 Jane is released in Version 1.2 - Captain America
 
+INFO: Keep in mind that the wiki is outdated. The new documentation is under development!
+
 ##What is Jane?
 - A system to control home devices e.g.: AVR, TV or other IR devices and computers via SSH
 - Jane uses Tasker with AutoVoice to control the system with your voice
 
 ##What is working?
 - Infrared control code receiving
-- Sending commands via the WebUI, Tasker (+ AutoVoice), Android Wear
+- Sending commands via the WebUI, Tasker (+ AutoVoice)
+- AndroidWear Voice command execution via AutoWear + AutoVoice withour root
 - Sinatra Webserver + Caching
 - Remote Control Outlets
 - Sending commands via SSH

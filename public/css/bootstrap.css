@@ -6202,6 +6202,13 @@ button.close {
 }
 /*# sourceMappingURL=bootstrap.css.map */
 
+.job-icon{
+  margin-right: 10px;
+}
+.schedule{
+  margin-top: 40px;
+}
+
 .logo {
   font-family: 'Lobster', cursive;
   font-size: 64px;
@@ -6209,5 +6216,28 @@ button.close {
   color: #b7293a;
   text-shadow: 2px 2px 0 #513a33;
 }
-
-
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
