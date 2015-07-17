@@ -146,6 +146,18 @@ get '/button/edit' do
 
 end
 
+get '/button/get' do
+  content_type :json
+  found_button = {}
+  config = Jane.config
+  config.each do |button|
+    if button[:device] == params[:device] and button[:action] == params[:action]
+      found_button = button
+    end
+  end
+  return found_button.to_json
+end
+
 get '/button/delete' do
   erb :button_delete
 end
