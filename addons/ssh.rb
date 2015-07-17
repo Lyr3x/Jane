@@ -14,8 +14,8 @@ module Ssh
   end
 
   def self.run(command_parameter)
-    password = config[:password]
-    Net::SSH.start(config[:host], config[:user], :password => password) do |ssh|
+    # password = config[:password]
+    Net::SSH.start(config[:host], config[:user]) do |ssh|
       ssh.open_channel do |channel|
         channel.request_pty do |ch, success|
           if success
@@ -30,7 +30,7 @@ module Ssh
     
           channel.on_data do |ch, data|
             puts "#{data}"
-            channel.send_data "#{password}\n" if data =~ /password/
+            # channel.send_data "#{password}\n" if data =~ /password/
           end
     
           channel.on_extended_data do |ch, type, data|
