@@ -4,6 +4,14 @@ require 'json'
 require 'net/http'
 require 'rake'
 require 'rack/cache'
+require 'rack'
+
+sinatra_ssl =
+  File.expand_path(
+    File.join(
+      ENV['JANE_PATH'], 'lib', 'sinatra_ssl'
+    )
+  )
 
 jane_lib =
   File.expand_path(
@@ -21,19 +29,27 @@ command =
 
 require jane_lib
 require command
+require sinatra_ssl
+pub = 
+  File.expand_path(
+    File.join(
+      ENV['JANE_PATH'],'CA','zertifikat-pub.pem'))
 
-# listen to 0.0.0.0 instead of localhost
-set :environment, :production
+priv = 
+  File.expand_path(
+    File.join(
+      ENV['JANE_PATH'],'CA','zertifikat-key.pem'))
 set :bind, '0.0.0.0'
-set :environment, :production
+set :port, 4567
+set :ssl_certificate, pub
+set :ssl_key, priv
 
 use Rack::Cache,
   :verbose => true,
     :metastore   => 'file:public/cache/meta',
     :entitystore => 'file:public/cache/body',
     :default_ttl => 604800
-
-$scheudled_jobs = {}
+  $scheudled_jobs = {}
 
 helpers do
   def render_ui(config)
@@ -57,35 +73,35 @@ helpers do
     return ui
   end
 
-  def render_button(button)
-    button_options = {
-      class: "btn #{button[:btn_class]} btn-lg btn-block",
-      onclick: "run('#{button[:device]}', '#{button[:action]}')"
-    }
-    icon_tag = "<span class=\"glyphicon glyphicon-#{button[:icon]}\"></span>"
-    content = "#{icon_tag} #{button[:label]}"
-    "<button #{button_options.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')}>#{content}</button>"
+ def render_button(button)
+   button_options = {
+     class: "btn #{button[:btn_class]} btn-lg btn-block",
+     onclick: "run('#{button[:device]}', '#{button[:action]}')"
+   }
+   icon_tag = "<span class=\"glyphicon glyphicon-#{button[:icon]}\"></span>"
+   content = "#{icon_tag} #{button[:label]}"
+   "<button #{button_options.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')}>#{content}</button>"
+ end
+
+def render_device(device_name, buttons)
+  html_device =
+  # "<div class=\"col-md-4 col-sm-6\"><h3>#{device_name}</h3><div class=\"well\">\n"
+  "<div class=\"col-md-4 col-sm-6\"><div class=\"panel panel-default\"><div class=\"panel-heading\" style=\"font-size:1.5em; font-weight:bold\">#{device_name}</div><div class=\"panel-body\">\n"
+  # <span class=\"glyphicon glyphicon-#{category_hash[:icon]}\"></span>  
+  
+  buttons.each do |button|
+    html_device += render_button(button)
+  end
+  html_device += "</div></div></div>"
+  
+  @i += 1
+  if @i%2==0
+    html_device += "<div class=\"clearfix visible-sm-block visible-md-block\"></div>" 
   end
 
-  def render_device(device_name, buttons)
-    html_device =
-    # "<div class=\"col-md-4 col-sm-6\"><h3>#{device_name}</h3><div class=\"well\">\n"
-    "<div class=\"col-md-4 col-sm-6\"><div class=\"panel panel-default\"><div class=\"panel-heading\" style=\"font-size:1.5em; font-weight:bold\">#{device_name}</div><div class=\"panel-body\">\n"
-    # <span class=\"glyphicon glyphicon-#{category_hash[:icon]}\"></span>  
-    
-    buttons.each do |button|
-      html_device += render_button(button)
-    end
-    html_device += "</div></div></div>"
-    
-    @i += 1
-    if @i%2==0
-      html_device += "<div class=\"clearfix visible-sm-block visible-md-block\"></div>" 
-    end
-
-    if @i%3==0
-      html_device += "<div class=\"clearfix visible-lg-block\"></div>" 
-    end
+  if @i%3==0
+    html_device += "<div class=\"clearfix visible-lg-block\"></div>" 
+  end
     return html_device
   end
 
@@ -240,7 +256,7 @@ def run_job(delay, device, action)
   sleep(delay)
   Commander.execute(device, action)
 end
-  
+    
 def remove_from_schedule(thr_id)
   $scheudled_jobs.delete(thr_id)
 end
@@ -268,3 +284,4 @@ end
 
 # sunset inital cron entry
 `rake update_cron`
+
