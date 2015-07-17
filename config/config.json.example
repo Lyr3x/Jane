@@ -1,0 +1,53 @@
+[
+ { "label": "light-on",
+   "icon": "off",
+   "btn_class": "btn-info",
+   "generate_button": true,
+   "device" : "lampe",
+   "action" : "on",
+   "commands": [
+     { "addon" : "radio",
+       "sleep_after_command" : 0,
+       "command_parameter":
+         { "device": "lamp",
+           "task": "on"
+         }
+     }
+   ]
+ },
+ { "label": "avr power",
+   "icon": "off",
+   "btn_class": "btn-info",
+   "generate_button": false,
+   "device" : "avr",
+   "action" : "power",
+   "commands": [
+     { "addon" : "lirc",
+       "sleep_after_command" : 5,
+       "command_parameter":
+         { "device": "avr",
+           "task": "KEY_POWER"
+         }
+     },
+     { "addon" : "lirc",
+       "sleep_after_command" : 0,
+       "command_parameter":
+         { "device": "avr",
+           "task": "KEY_1"
+         }
+     }
+   ]
+ },
+ { "generate_button": false,
+   "device" : "foo",
+   "action" : "baa",
+   "commands": [
+     { "addon" : "printer",
+       "sleep_after_command" : 0,
+       "command_parameter":
+         { "text": "hallo from printer"
+         }
+     }
+   ]
+ }
+]

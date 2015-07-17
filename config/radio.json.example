@@ -1,0 +1,14 @@
+[
+  { "systemcode": 11111,
+    "devices": {
+      "lamp": "a",
+      "led": "b"
+    }
+  },
+  { "systemcode": 11110,
+    "devices": {
+      "fan": "c",
+      "blinds": "d"
+    }
+  }
+]
